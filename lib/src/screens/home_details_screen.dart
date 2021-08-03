@@ -4,7 +4,9 @@ import 'package:share_plus/share_plus.dart';
 class HomeDetailsScreen extends StatelessWidget {
   final snapshot;
   final index;
-  HomeDetailsScreen(this.snapshot, this.index);
+  final img;
+
+  HomeDetailsScreen(this.snapshot, this.index, this.img);
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +15,7 @@ class HomeDetailsScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Row( 
+          Row(
             children: [
               SizedBox(
                 width: 10,
@@ -28,7 +30,7 @@ class HomeDetailsScreen extends StatelessWidget {
               ),
               Expanded(
                   child: Text(
-                (snapshot.data[index])['title'].toString(),
+                snapshot.data[index].title.toString(),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -52,7 +54,7 @@ class HomeDetailsScreen extends StatelessWidget {
                       Text('Share'),
                       GestureDetector(
                         child: Icon(Icons.share),
-                        onTap: () => Share.share((snapshot.data[index])['url']),
+                        onTap: () => Share.share((snapshot.data[index]).url),
                       ),
                       catReturn(snapshot, index),
                     ],
@@ -71,7 +73,7 @@ class HomeDetailsScreen extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.all(10),
-            child: Text((snapshot.data[index])['description']),
+            child: Text((snapshot.data[index]).description),
           ),
         ],
       ),
@@ -79,12 +81,10 @@ class HomeDetailsScreen extends StatelessWidget {
   }
 
   latestNewsImage(snapshot, index) {
-    if ((snapshot.data[index])['image'] != null) {
+    if ((snapshot.data[index]).image != null) {
       return Container(
         child: ClipRRect(
-          child: Image.network(
-            (snapshot.data[index])['image'],
-          ),
+          child: img,
           borderRadius: BorderRadius.circular(20),
         ),
         margin: EdgeInsets.all(20),
@@ -98,7 +98,7 @@ class HomeDetailsScreen extends StatelessWidget {
 
   catReturn(snapshot, index) {
     var categories = "";
-    for (var i in (snapshot.data[index])['category']) {
+    for (var i in (snapshot.data[index]).category) {
       categories += i + ", ";
     }
     if (categories != null && categories.length > 0) {

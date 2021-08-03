@@ -1,8 +1,8 @@
-// import 'package:news/src/models/item_model.dart';
+import 'news_api_provider.dart';
 
-// class Repository {
-//   fetchLatestNews() async{
-//     ItemModel item = [] as ItemModel;
+class Repository {
 
-//   }
-// }
+  fetchLatestNews() async {
+    return await NewsApiProvider().fetchLatestNews();
+  }
+}
