@@ -12,8 +12,8 @@ class LoadingCategoriesState extends State<LoadingCategories>
 
   @override
   void initState() {
-    _animationController =
-        new AnimationController(vsync: this, duration: Duration(milliseconds: 400));
+    _animationController = new AnimationController(
+        vsync: this, duration: Duration(milliseconds: 400));
     _animationController.repeat(reverse: true);
     super.initState();
   }
@@ -21,18 +21,23 @@ class LoadingCategoriesState extends State<LoadingCategories>
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
-      opacity: _animationController,
-      child: Row(children: [
-        SizedBox(width: 10),
-        buildContainer(), 
-        SizedBox(width: 10),
-        buildContainer(), 
-        SizedBox(width: 10,), 
-        buildContainer(),
-        SizedBox(width: 10,), 
-        Expanded(child: buildContainer())],
-        )
-    );
+        opacity: _animationController,
+        child: Row(
+          children: [
+            SizedBox(width: 10),
+            buildContainer(),
+            SizedBox(width: 10),
+            buildContainer(),
+            SizedBox(
+              width: 10,
+            ),
+            buildContainer(),
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(child: buildContainer())
+          ],
+        ));
   }
 
   buildContainer() {
@@ -42,5 +47,11 @@ class LoadingCategoriesState extends State<LoadingCategories>
       color: Colors.grey[350],
       margin: EdgeInsets.only(top: 10, bottom: 10),
     );
+  }
+
+  @override
+  dispose() {
+    _animationController.dispose(); // you need this
+    super.dispose();
   }
 }

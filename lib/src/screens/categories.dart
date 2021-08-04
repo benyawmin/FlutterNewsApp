@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:news/src/blocs/latest_news_provider.dart';
-import 'package:news/src/resources/repository.dart';
 import '../resources/categories.dart';
 import '../widgets/basedOnCats.dart';
 
@@ -8,7 +7,6 @@ class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = LatestNewsProvider.of(context);
-    final repository = Repository();
     return Column(
       children: [
         ExpansionTile(

@@ -6,120 +6,119 @@ import 'loading_latest_news.dart';
 
 class LatestNewsList extends StatelessWidget {
   final bloc;
+  final blocStream;
 
-  LatestNewsList(this.bloc);
+  LatestNewsList(this.bloc, this.blocStream);
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: bloc.newsStream,
+        stream: blocStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data.toString());
+            // print(snapshot.data.toString());
             return Expanded(
-                child: SizedBox(
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                padding: EdgeInsets.all(8),
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    width: 300,
-                    child: GestureDetector(
-                      onTap: () {
-                        if (snapshot.hasData) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomeDetailsScreen(
-                                      snapshot,
-                                      index,
-                                      latestNewsImage(snapshot, index))));
-                        }
-                      },
-                      child: Card(
-                        semanticContainer: true,
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        child: Column(
-                          children: [
-                            Align(
-                              child: catReturn(snapshot, index),
-                              alignment: Alignment.topLeft,
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Icon(
-                                  Icons.circle,
-                                  color: Colors.blue,
-                                  size: 8,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                    child: Text(
-                                  (snapshot.data[index]).title.toString(),
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                  ),
-                                )),
-                              ],
-                            ),
-                            Container(
-                              margin: EdgeInsets.all(10),
-                              child: Text((snapshot.data[index]).description),
-                            ),
-                            SizedBox(
-                              child: Container(
-                                height: 10,
+                child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              padding: EdgeInsets.all(8),
+              itemCount: snapshot.data.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  width: 300,
+                  child: GestureDetector(
+                    onTap: () {
+                      if (snapshot.hasData) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeDetailsScreen(
+                                    snapshot,
+                                    index,
+                                    latestNewsImage(snapshot, index))));
+                      }
+                    },
+                    child: Card(
+                      semanticContainer: true,
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: Column(
+                        children: [
+                          Align(
+                            child: catReturn(snapshot, index),
+                            alignment: Alignment.topLeft,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 10,
                               ),
+                              Icon(
+                                Icons.circle,
+                                color: Colors.blue,
+                                size: 8,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                  child: Text(
+                                (snapshot.data[index]).title.toString(),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                ),
+                              )),
+                            ],
+                          ),
+                          Container(
+                            margin: EdgeInsets.all(10),
+                            child: Text((snapshot.data[index]).description),
+                          ),
+                          SizedBox(
+                            child: Container(
+                              height: 10,
                             ),
-                            latestNewsImage(snapshot, index),
-                            Align(
-                              child: Row(children: [
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 10, left: 20, bottom: 10),
-                                    child: Row(
-                                      children: [
-                                        Text('Share'),
-                                        GestureDetector(
-                                          child: Icon(Icons.share),
-                                          onTap: () => Share.share(
-                                              (snapshot.data[index]).url),
-                                        ),
-                                      ],
-                                    )),
-                                Spacer(),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 10, right: 20, bottom: 10),
-                                    child: Row(
-                                      children: [
-                                        Text('Save'),
-                                        Icon(Icons.save),
-                                      ],
-                                    ))
-                              ]),
-                              alignment: Alignment.bottomLeft,
-                            )
-                          ],
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.7),
-                        ),
-                        elevation: 5,
-                        margin: EdgeInsets.all(10),
+                          ),
+                          latestNewsImage(snapshot, index),
+                          Align(
+                            child: Row(children: [
+                              Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 10, left: 20, bottom: 10),
+                                  child: Row(
+                                    children: [
+                                      Text('Share'),
+                                      GestureDetector(
+                                        child: Icon(Icons.share),
+                                        onTap: () => Share.share(
+                                            (snapshot.data[index]).url),
+                                      ),
+                                    ],
+                                  )),
+                              Spacer(),
+                              Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 10, right: 20, bottom: 10),
+                                  child: Row(
+                                    children: [
+                                      Text('Save'),
+                                      Icon(Icons.save),
+                                    ],
+                                  ))
+                            ]),
+                            alignment: Alignment.bottomLeft,
+                          )
+                        ],
                       ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(2.7),
+                      ),
+                      elevation: 5,
+                      margin: EdgeInsets.all(10),
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ));
           }
           return LoadingLatestNews();

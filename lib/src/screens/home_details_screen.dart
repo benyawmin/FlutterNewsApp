@@ -45,7 +45,7 @@ class HomeDetailsScreen extends StatelessWidget {
             ),
           ),
           latestNewsImage(snapshot, index),
-          Align(
+          Align( 
             child: Row(children: [
               Padding(
                   padding: EdgeInsets.only(top: 10, left: 20, bottom: 10),

@@ -14,15 +14,15 @@ class NewsApiProvider {
     if (response.statusCode == 200) {
       // print(response.body);
       final items = json.decode(response.body);
-      print(items["news"].length);
-      print("----------------------------------------------------------");
-      print(items);
-      print("----------------------------------------------------------");
-      print(items["news"]);
-      print("----------------------------------------------------------");
-      print('Successful 200');
+      // print(items["news"].length);
+      // print("----------------------------------------------------------");
+      // print(items);
+      // print("----------------------------------------------------------");
+      // print(items["news"]);
+      // print("----------------------------------------------------------");
+      // print('Successful 200');
 
-      print(items);
+      // print(items);
 
       return NewsModel.fromJson(items).news;
     } else if (response.statusCode == 401) {

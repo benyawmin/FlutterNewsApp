@@ -38,4 +38,10 @@ class LoadingLatestNewsState extends State<LoadingLatestNews>
       margin: EdgeInsets.only(top: 10, bottom: 10),
     );
   }
+
+  @override
+  dispose() {
+    _animationController.dispose(); // you need this
+    super.dispose();
+  }
 }
