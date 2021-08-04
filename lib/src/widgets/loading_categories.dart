@@ -35,7 +35,7 @@ class LoadingCategoriesState extends State<LoadingCategories>
             SizedBox(
               width: 10,
             ),
-            Expanded(child: buildContainer())
+            buildContainer()
           ],
         ));
   }

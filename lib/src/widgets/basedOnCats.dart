@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news/src/blocs/latest_news_provider.dart';
-import 'package:news/src/widgets/loading_latest_news.dart';
+import 'package:news/src/widgets/latest_news_list.dart';
+import 'package:news/src/widgets/news_list_builder.dart';
+
+import 'loading_latest_news.dart';
 
 class BasedOnCats extends StatelessWidget {
   final String category;
@@ -9,31 +12,48 @@ class BasedOnCats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = LatestNewsProvider.of(context);
+
+    // bloc.filteredbyCat.stream.map((event) {
+    //   for (var i in event) {
+    //     for (var cat in i.category) {
+    //       if (cat == category) return i.category;
+    //     }
+    //   }
+    // }).listen((e) {
+    //   print(e);
+    //   bloc.filteredbyCat.sink.add(null);
+    // });
+
     bloc.fetchLatestNewsByCategory(category);
     return Scaffold(
         appBar: AppBar(
           title: Text('News'),
         ),
-        body: 
-        StreamBuilder(
-          stream: bloc.filteredbyCatStream,
+        body:
+        //  Text('s')
+            //  LatestNewsList(bloc, bloc.filteredCatOutput));
+            StreamBuilder(
+          stream: bloc.filteredbyCat,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
-              // print(snapshot.data[1].toString());
-              ListView.builder(
+              return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
-                  // print(snapshot.data[index].toString());
-                  return Text(snapshot.data[index].id.toString());
+                  filter(String value) => value.contains(category);
+
+                  if (snapshot.data[index].category.toList().any(filter) == true)
+                    return NewsListBuilder(snapshot);
+                  else
+                    return Container();
+                  // return Text(
+                  //     snapshot.data[index].category.toList().toString());
                 },
               );
-              return Text('Nothing found');
-            } 
-            else
-              return LoadingLatestNews();
+            }
+            return Center(
+              child: LoadingLatestNews(),
+            );
           },
-        )
-        // LatestNewsList(bloc, bloc.filteredbyCatStream),
-        );
+        ));
   }
 }

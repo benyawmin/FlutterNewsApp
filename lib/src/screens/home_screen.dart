@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news/src/screens/categories.dart';
 import 'package:news/src/screens/home.dart';
+import 'Search.dart';
+import 'area.dart';
+import 'profile.dart';
 
 class HomeScreen extends StatefulWidget {
   createState() {
@@ -15,26 +18,17 @@ class HomeScreenState extends State<HomeScreen> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Areas',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Contact',
-      style: optionStyle,
-    ),
+    Area(),
+    Profile(),
     Categories(),
-    Text(
-      'Index 3: Search',
-      style: optionStyle,
-    ),
+    Search(),
     Home(),
     // NewsList(),
   ];
 
   Widget build(BuildContext context) {
-      // final bloc = LatestNewsProvider.of(context);
-      // print(bloc.fetchLatestNews());
+    // final bloc = LatestNewsProvider.of(context);
+    // print(bloc.fetchLatestNews());
     // pr();
     return Scaffold(
       appBar: AppBar(
