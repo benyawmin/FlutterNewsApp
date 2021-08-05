@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import '../blocs/latest_news_provider.dart';
 
 class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
+    final bloc = LatestNewsProvider.of(context);
     return Container(
         width: 250,
         margin: EdgeInsets.only(left: 20, right: 20, top: 20),
         child: TextField(
+          onSubmitted: (text) => bloc.fetchSearchedNews(text),
           autocorrect: false,
           decoration: InputDecoration(
               hintStyle: TextStyle(color: hexToColor('#cecece')),

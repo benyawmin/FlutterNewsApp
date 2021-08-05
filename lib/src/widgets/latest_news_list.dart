@@ -15,6 +15,8 @@ class LatestNewsList extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return NewsListBuilder(snapshot);
+          } else if (snapshot.hasError) {
+            return Text('No results were found');
           }
           return LoadingLatestNews();
         });

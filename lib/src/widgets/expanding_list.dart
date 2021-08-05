@@ -3,7 +3,8 @@ import '../widgets/basedOnCats.dart';
 
 class ExpandingList extends StatelessWidget {
   final items;
-  ExpandingList(this.items);
+  final String title;
+  ExpandingList(this.items, this.title);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class ExpandingList extends StatelessWidget {
         'See all',
         style: TextStyle(color: Colors.blue),
       ),
-      title: Text('Categories'),
+      title: Text(title),
       children: [
         Wrap(
           children: [

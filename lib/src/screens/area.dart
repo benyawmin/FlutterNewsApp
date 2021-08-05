@@ -7,7 +7,7 @@ class Area extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ExpandingList(regions)
+        ExpandingList(regions, 'Regions')
       ],
     );
   }
