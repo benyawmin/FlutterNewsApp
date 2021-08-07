@@ -10,74 +10,77 @@ class HomeDetailsScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Details'),
-      ),
-      body: Column(
-        children: [
-          Row(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: Text('Details'),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
             children: [
+              Row(
+                children: [
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Icon(
+                    Icons.circle,
+                    color: Colors.blue,
+                    size: 8,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                      child: Text(
+                    snapshot.data[index].title.toString(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
+                  )),
+                ],
+              ),
               SizedBox(
-                width: 10,
-              ),
-              Icon(
-                Icons.circle,
-                color: Colors.blue,
-                size: 8,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                  child: Text(
-                snapshot.data[index].title.toString(),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.black,
+                child: Container(
+                  height: 10,
                 ),
-              )),
+              ),
+              latestNewsImage(snapshot, index),
+              Align(
+                child: Row(children: [
+                  Padding(
+                      padding: EdgeInsets.only(top: 10, left: 20, bottom: 10),
+                      child: Row(
+                        children: [
+                          Text('Share'),
+                          GestureDetector(
+                            child: Icon(Icons.share),
+                            onTap: () =>
+                                Share.share((snapshot.data[index]).url),
+                          ),
+                          catReturn(snapshot, index),
+                        ],
+                      )),
+                  Spacer(),
+                  Padding(
+                      padding: EdgeInsets.only(top: 10, right: 20, bottom: 10),
+                      child: Row(
+                        children: [
+                          Text('Save'),
+                          Icon(Icons.bookmark_border_outlined),
+                        ],
+                      )),
+                ]),
+                alignment: Alignment.bottomLeft,
+              ),
+              Container(
+                margin: EdgeInsets.all(10),
+                child: Text((snapshot.data[index]).description),
+              ),
             ],
           ),
-          SizedBox(
-            child: Container(
-              height: 10,
-            ),
-          ),
-          latestNewsImage(snapshot, index),
-          Align( 
-            child: Row(children: [
-              Padding(
-                  padding: EdgeInsets.only(top: 10, left: 20, bottom: 10),
-                  child: Row(
-                    children: [
-                      Text('Share'),
-                      GestureDetector(
-                        child: Icon(Icons.share),
-                        onTap: () => Share.share((snapshot.data[index]).url),
-                      ),
-                      catReturn(snapshot, index),
-                    ],
-                  )),
-              Spacer(),
-              Padding(
-                  padding: EdgeInsets.only(top: 10, right: 20, bottom: 10),
-                  child: Row(
-                    children: [
-                      Text('Save'),
-                      Icon(Icons.save),
-                    ],
-                  )),
-            ]),
-            alignment: Alignment.bottomLeft,
-          ),
-          Container(
-            margin: EdgeInsets.all(10),
-            child: Text((snapshot.data[index]).description),
-          ),
-        ],
-      ),
-    );
+        ));
   }
 
   latestNewsImage(snapshot, index) {

@@ -14,7 +14,7 @@ class NewsDbProvider {
 
   void init() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final path = join(documentsDirectory.path, 'database.db');
+    final path = join(documentsDirectory.path, 'database2.db');
     db = await openDatabase(path, version: 1,
         onCreate: (Database newDb, int version) {
       newDb.execute("""
@@ -27,8 +27,8 @@ class NewsDbProvider {
                 author TEXT,
                 image TEXT,
                 language TEXT,
-                List<String> category BLOB,
-                published TEXT,
+                category BLOB,
+                published TEXT
           )
           """);
     });
@@ -49,7 +49,21 @@ class NewsDbProvider {
     return null;
   }
 
-  addItem (item) {
+  fetchAllItems() async {
+    final maps = await db.query(
+      "NewsItems",
+      columns: null,
+      where: null,
+    );
+
+    if (maps.length > 0) {
+      return NewsModel.fromDb(maps.first).news;
+    }
+
+    return null;
+  }
+
+  addItem(item) {
     return db.insert(
       "NewsItems",
       item.toJson(),
@@ -60,6 +74,6 @@ class NewsDbProvider {
   clear() {
     return db.delete('NewsItems');
   }
-
 }
-  final newsDbProvider = NewsDbProvider();
+
+final newsDbProvider = NewsDbProvider();

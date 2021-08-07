@@ -23,9 +23,13 @@ class NewsModel {
   }
 
   NewsModel.fromDb(Map<String, dynamic> dbToJson) {
-    News.fromDb(dbToJson);
+    if (dbToJson['news'] != null) {
+      news = [];
+      dbToJson['news'].forEach((v) {
+        news.add(new News.fromDb(v));
+      });
+    }
   }
-
 }
 
 class News {
@@ -62,8 +66,7 @@ class News {
     published = json['published'];
   }
 
-    
-    News.fromDb(Map<String, dynamic> dbToJson) {
+  News.fromDb(Map<String, dynamic> dbToJson) {
     id = dbToJson['id'];
     title = dbToJson['title'];
     description = dbToJson['description'];
@@ -71,7 +74,7 @@ class News {
     author = dbToJson['author'];
     image = dbToJson['image'];
     language = dbToJson['language'];
-    category = jsonDecode(dbToJson['category'].cast<String>());
+    category = jsonDecode(dbToJson['category']).cast<String>();
     published = dbToJson['published'];
   }
 

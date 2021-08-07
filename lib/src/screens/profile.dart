@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/favorite_news.dart';
 
 class Profile extends StatelessWidget {
   static const TextStyle proftxtnormal =
@@ -58,19 +59,22 @@ class Profile extends StatelessWidget {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+            margin: EdgeInsets.only(top: 10, left: 10, right: 10),
             width: 380,
             height: 50,
             child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.white
-              ),
-                onPressed: () {},
+                style: ElevatedButton.styleFrom(primary: Colors.white),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => FavoriteNews()));
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Show list of favorites',
-                    style: TextStyle(color: Colors.black),),
+                    Text(
+                      'Show list of favorites',
+                      style: TextStyle(color: Colors.black),
+                    ),
                     Icon(
                       Icons.arrow_forward_outlined,
                       color: Colors.black,

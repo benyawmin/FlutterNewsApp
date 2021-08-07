@@ -3,23 +3,38 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:news/src/screens/home_details_screen.dart';
 import 'package:share_plus/share_plus.dart';
 import 'loading_latest_news.dart';
+import '../resources/repository.dart';
+import '../blocs/latest_news_provider.dart';
 
-class NewsListBuilderItems extends StatelessWidget {
+class NewsListBuilderItems extends StatefulWidget {
   final snapshot;
   final index;
   NewsListBuilderItems(this.snapshot, this.index);
+
+  createState() {
+    return new NewsListBuilderItemsState();
+  }
+}
+
+class NewsListBuilderItemsState extends State<NewsListBuilderItems> {
+  final _repository = Repository();
+  bool selected = false;
   @override
   Widget build(BuildContext context) {
+    final bloc = LatestNewsProvider.of(context);
     return Container(
       width: 300,
       child: GestureDetector(
         onTap: () {
-          if (snapshot.hasData) {
+          if (widget.snapshot.hasData) {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => HomeDetailsScreen(
-                        snapshot, index, latestNewsImage(snapshot, index))));
+                          widget.snapshot,
+                          widget.index,
+                          latestNewsImage(widget.snapshot, widget.index),
+                        )));
           }
         },
         child: Card(
@@ -28,7 +43,7 @@ class NewsListBuilderItems extends StatelessWidget {
           child: Column(
             children: [
               Align(
-                child: catReturn(snapshot, index),
+                child: catReturn(widget.snapshot, widget.index),
                 alignment: Alignment.topLeft,
               ),
               Row(
@@ -46,7 +61,7 @@ class NewsListBuilderItems extends StatelessWidget {
                   ),
                   Expanded(
                       child: Text(
-                    (snapshot.data[index]).title.toString(),
+                    (widget.snapshot.data[widget.index]).title.toString(),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -57,14 +72,14 @@ class NewsListBuilderItems extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.all(10),
-                child: Text((snapshot.data[index]).description),
+                child: Text((widget.snapshot.data[widget.index]).description),
               ),
               SizedBox(
                 child: Container(
                   height: 10,
                 ),
               ),
-              latestNewsImage(snapshot, index),
+              latestNewsImage(widget.snapshot, widget.index),
               Align(
                 child: Row(children: [
                   Padding(
@@ -74,8 +89,8 @@ class NewsListBuilderItems extends StatelessWidget {
                           Text('Share'),
                           GestureDetector(
                             child: Icon(Icons.share),
-                            onTap: () =>
-                                Share.share((snapshot.data[index]).url),
+                            onTap: () => Share.share(
+                                (widget.snapshot.data[widget.index]).url),
                           ),
                         ],
                       )),
@@ -85,7 +100,38 @@ class NewsListBuilderItems extends StatelessWidget {
                       child: Row(
                         children: [
                           Text('Save'),
-                          Icon(Icons.save),
+                          GestureDetector(
+                            child: Icon(selected
+                                ? Icons.bookmark
+                                : Icons.bookmark_border_outlined),
+                            onTap: () {
+                              setState(() {
+                                selected = !selected;
+                                // print(widget.snapshot.data[widget.index]);
+                                // _repository.resetDb();
+
+
+                                _repository.addToDb(
+                                    widget.snapshot.data[widget.index]);
+
+                                bloc.addToSavedNews(
+                                    widget.snapshot, widget.index);
+
+
+                                // FutureBuilder(future: _repository.fetchAllFromDb(),
+                                // builder: (BuildContext context, AsyncSnapshot snapshot) {
+                                //   if (snapshot.hasData) {
+                                //     ListView.builder(itemCount: snapshot.data!.length,
+                                //     itemBuilder: (BuildContext context, index) {
+                                //       return Text(snapshot.data[index].category);
+                                //     },
+                                //     );
+                                //   }
+                                // },
+                                // );
+                              });
+                            },
+                          )
                         ],
                       ))
                 ]),

@@ -21,7 +21,8 @@ class HomeScreenState extends State<HomeScreen> {
     Area(),
     Profile(),
     Categories(),
-    Search(),
+    SingleChildScrollView(child:     Search(),
+),
     Home(),
     // NewsList(),
   ];

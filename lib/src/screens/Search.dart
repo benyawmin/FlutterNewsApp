@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news/src/resources/categories.dart';
 import 'package:news/src/widgets/latest_news_list.dart';
+import 'package:news/src/widgets/news_list_builder.dart';
 import 'package:news/src/widgets/searchbar.dart';
 import '../blocs/latest_news_bloc.dart';
 import '../blocs/latest_news_provider.dart';
@@ -18,20 +19,32 @@ class Search extends StatelessWidget {
 
     return DefaultTabController(
       length: 3,
-      child:  Column(
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+          Row(
+            children: [
+              SearchBar(),
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                child: CircleAvatar(
+                  backgroundImage:
+                      NetworkImage('https://picsum.photos/200/300'),
+                ),
+              ),
+            ],
+          ),
           Container(
             child: TabBar(
-            unselectedLabelColor: Colors.black,
-          labelColor: Colors.blue, 
-            tabs: [
-              Tab(
-                text: "Home",
-              ),
-              Tab(text: "Articles"),
-              Tab(text: "User"),
-            ]),
+                unselectedLabelColor: Colors.black,
+                labelColor: Colors.blue,
+                tabs: [
+                  Tab(
+                    text: "Latest",
+                  ),
+                  Tab(text: "Articles"),
+                  Tab(text: "User"),
+                ]),
           ),
           Container(
             //Add this to give height
@@ -39,28 +52,24 @@ class Search extends StatelessWidget {
             child: TabBarView(children: [
               Column(
                 children: [
-                  Row(
-                    children: [
-                      SearchBar(),
-                      Container(
-                        margin: EdgeInsets.only(top: 20),
-                        child: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage('https://picsum.photos/200/300'),
-                        ),
-                      ),
-                      // StreamBuilder(
-                      //   stream: bloc.searchedListBuilderStream,
-                      //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      //     if (snapshot.hasData) {
-                      //       return LatestNewsList(bloc, bloc.searchedListBuilderStream);
-                      //     }
-                      //   },
-                      // )
-                    ],
-                  ),
-                  Text('This is good'),
-                  LatestNewsList(bloc, bloc.searchedListBuilderStream)
+                  StreamBuilder(
+                    stream: bloc.searchedListBuilderStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return NewsListBuilder(snapshot);
+                      } else if (snapshot.hasError) {
+                        return Text('No results found');
+                      }
+                      bloc.fetchLatestNews();
+
+                      return Expanded(child: Column(
+                        children: [
+                          Text('This is the place holder for horizontal list'),
+                          LatestNewsList(bloc, bloc.newsStream),
+                        ],
+                      )) ;
+                    },
+                  )
                 ],
               ),
               Container(
