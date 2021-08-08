@@ -2,6 +2,7 @@ import 'dart:convert';
 
 class NewsModel {
   late List<News> news;
+  late List<News> dbNews;
 
   NewsModel({required this.news});
 
@@ -22,13 +23,17 @@ class NewsModel {
     return data;
   }
 
-  NewsModel.fromDb(Map<String, dynamic> dbToJson) {
-    if (dbToJson['news'] != null) {
-      news = [];
-      dbToJson['news'].forEach((v) {
-        news.add(new News.fromDb(v));
+  NewsModel.fromDb(List<Map<String, dynamic>> dbToJson) {
+    // PROBLEM WITH DATABASE IS HERE
+    // print(dbToJson);
+    if (dbToJson != null) {
+      // print(dbToJson);
+      dbNews = [];
+      dbToJson.forEach((v) {
+        dbNews.add(new News.fromDb(v));
       });
     }
+    // print(dbNews);
   }
 }
 

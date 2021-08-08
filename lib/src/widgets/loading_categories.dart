@@ -21,23 +21,25 @@ class LoadingCategoriesState extends State<LoadingCategories>
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
-        opacity: _animationController,
-        child: Row(
-          children: [
-            SizedBox(width: 10),
-            buildContainer(),
-            SizedBox(width: 10),
-            buildContainer(),
-            SizedBox(
-              width: 10,
-            ),
-            buildContainer(),
-            SizedBox(
-              width: 10,
-            ),
-            buildContainer()
-          ],
-        ));
+      opacity: _animationController,
+      child: buildContainer(),
+      // Row(
+      //   children: [
+      //     SizedBox(width: 10),
+      //     buildContainer(),
+      //     SizedBox(width: 10),
+      //     buildContainer(),
+      //     SizedBox(
+      //       width: 10,
+      //     ),
+      //     buildContainer(),
+      //     SizedBox(
+      //       width: 10,
+      //     ),
+      //     buildContainer()
+      //   ],
+      // )
+    );
   }
 
   buildContainer() {

@@ -107,28 +107,11 @@ class NewsListBuilderItemsState extends State<NewsListBuilderItems> {
                             onTap: () {
                               setState(() {
                                 selected = !selected;
-                                // print(widget.snapshot.data[widget.index]);
-                                // _repository.resetDb();
-
-
                                 _repository.addToDb(
                                     widget.snapshot.data[widget.index]);
 
                                 bloc.addToSavedNews(
                                     widget.snapshot, widget.index);
-
-
-                                // FutureBuilder(future: _repository.fetchAllFromDb(),
-                                // builder: (BuildContext context, AsyncSnapshot snapshot) {
-                                //   if (snapshot.hasData) {
-                                //     ListView.builder(itemCount: snapshot.data!.length,
-                                //     itemBuilder: (BuildContext context, index) {
-                                //       return Text(snapshot.data[index].category);
-                                //     },
-                                //     );
-                                //   }
-                                // },
-                                // );
                               });
                             },
                           )

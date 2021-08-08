@@ -35,6 +35,7 @@ class LatestNewsBloc {
   }
 
   addToSavedNews(snapshot, index) async {
+    // print(await _repository.fetchAllFromDb());
     savedNews.sink.add(await _repository.fetchAllFromDb());
   }
 

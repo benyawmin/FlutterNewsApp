@@ -14,7 +14,7 @@ class LatestNewsList extends StatelessWidget {
         stream: blocStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data.toString());
+            // print(snapshot.data.toString());
             return NewsListBuilder(snapshot);
           } else if (snapshot.hasError) {
             return Text('No results were found');

@@ -14,7 +14,7 @@ class NewsDbProvider {
 
   void init() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final path = join(documentsDirectory.path, 'database2.db');
+    final path = join(documentsDirectory.path, 'dbase.db');
     db = await openDatabase(path, version: 1,
         onCreate: (Database newDb, int version) {
       newDb.execute("""
@@ -34,20 +34,20 @@ class NewsDbProvider {
     });
   }
 
-  fetchItem(int id) async {
-    final maps = await db.query(
-      "NewsItems",
-      columns: null,
-      where: "id = ?",
-      whereArgs: [id],
-    );
+  // fetchItem(int id) async {
+  //   final maps = await db.query(
+  //     "NewsItems",
+  //     columns: null,
+  //     where: "id = ?",
+  //     whereArgs: [id],
+  //   );
 
-    if (maps.length > 0) {
-      return NewsModel.fromDb(maps.first);
-    }
+  //   if (maps.length > 0) {
+  //     return NewsModel.fromDb(maps.first);
+  //   }
 
-    return null;
-  }
+  //   return null;
+  // }
 
   fetchAllItems() async {
     final maps = await db.query(
@@ -57,7 +57,10 @@ class NewsDbProvider {
     );
 
     if (maps.length > 0) {
-      return NewsModel.fromDb(maps.first).news;
+      // print(News.fromDb(maps.first).category);
+      // print(maps[1]);
+      print(NewsModel.fromDb(maps).dbNews);
+      return NewsModel.fromDb(maps).dbNews;
     }
 
     return null;

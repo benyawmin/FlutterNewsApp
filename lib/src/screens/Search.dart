@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:news/src/resources/categories.dart';
 import 'package:news/src/widgets/latest_news_list.dart';
 import 'package:news/src/widgets/news_list_builder.dart';
 import 'package:news/src/widgets/searchbar.dart';
-import '../blocs/latest_news_bloc.dart';
 import '../blocs/latest_news_provider.dart';
+import '../widgets/HorizontalSearchList.dart';
 
 class Search extends StatelessWidget {
   final tab = new TabBar(tabs: <Tab>[
@@ -61,13 +60,13 @@ class Search extends StatelessWidget {
                         return Text('No results found');
                       }
                       bloc.fetchLatestNews();
-
-                      return Expanded(child: Column(
+                      return Expanded(
+                          child: Column(
                         children: [
-                          Text('This is the place holder for horizontal list'),
+                          HorizontalSearchList(bloc, bloc.newsStream),
                           LatestNewsList(bloc, bloc.newsStream),
                         ],
-                      )) ;
+                      ));
                     },
                   )
                 ],
