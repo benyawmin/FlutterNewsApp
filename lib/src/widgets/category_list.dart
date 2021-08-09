@@ -7,7 +7,7 @@ class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.topLeft, 
+      alignment: Alignment.topLeft,
       height: 120,
       margin: EdgeInsets.only(top: 15),
       child: ListView(

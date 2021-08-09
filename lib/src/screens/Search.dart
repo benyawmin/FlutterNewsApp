@@ -3,7 +3,7 @@ import 'package:news/src/widgets/latest_news_list.dart';
 import 'package:news/src/widgets/news_list_builder.dart';
 import 'package:news/src/widgets/searchbar.dart';
 import '../blocs/latest_news_provider.dart';
-import '../widgets/HorizontalSearchList.dart';
+import '../widgets/horizontal_search_list.dart';
 
 class Search extends StatelessWidget {
   final tab = new TabBar(tabs: <Tab>[

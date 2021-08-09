@@ -11,23 +11,6 @@ class Repository {
   ];
 
   fetchLatestNews() async {
-    // NewsModel item = [] as NewsModel;
-    // var source;
-
-    // for (source in sources) {
-    //   item = await source.fetchItem(id);
-    //   if (item != null) {
-    //     break;
-    //   }
-    // }
-
-    // for (var cache in caches) {
-    //   if (cache != source) {
-    //     cache.addItem(item);
-    //   }
-    // }
-
-    // return item;
     return await NewsApiProvider().fetchLatestNews();
   }
 
@@ -37,6 +20,14 @@ class Repository {
 
   fetchSearchedNews(String searchParameter) async {
     return await NewsApiProvider().fetchSearchedNews(searchParameter);
+  }
+
+  fetchByCategory(String searchParameter) async {
+    return await NewsApiProvider().fetchByCategory(searchParameter);
+  }
+
+  fetchByRegion(String region) async {
+    return await NewsApiProvider().fetchByRegion(region);
   }
 
   resetDb() {

@@ -5,17 +5,18 @@ class LatestNewsBloc {
   final _repository = Repository();
 
   final newsFetcher = PublishSubject();
-  final filteredbyCat = BehaviorSubject();
   final txtField = BehaviorSubject();
   final searchedListBuilder = PublishSubject();
   final savedNews = BehaviorSubject();
-  // final filteredCatOutput = PublishSubject();
+  final filteredByCat = PublishSubject();
+  final filteredByRegion = PublishSubject();
 
   get newsStream => newsFetcher.stream;
-  get filteredbyCatStream => filteredbyCat.stream;
   get txtFieldStream => txtField.stream;
   get searchedListBuilderStream => searchedListBuilder.stream;
   get savedNewsStream => savedNews.stream;
+  get filteredByCatStream => filteredByCat.stream;
+  get filteredByRegionStream => filteredByRegion.stream;
 
   addTxt(String txt) {
     txtField.sink.add(txt);
@@ -35,26 +36,23 @@ class LatestNewsBloc {
   }
 
   addToSavedNews(snapshot, index) async {
-    // print(await _repository.fetchAllFromDb());
     savedNews.sink.add(await _repository.fetchAllFromDb());
   }
 
-  // fetchLatestNewsByCategory() async {
-  //   var latestNews = await _repository.fetchLatestNews();
-  //   filteredbyCat.sink.add(latestNews);
-  //   // filteredbyCat.transform(_filteredbyCatTransformer(category)).pipe(filteredCatOutput);
-  // }
+  fetchByCat(String category) async {
+    filteredByCat.sink.add(await _repository.fetchByCategory(category));
+  }
 
-  // _filteredbyCatTransformer(category) {
-  //   return filteredbyCat.stream;
-  // }
+  fetchByRegion(String region) async{
+    filteredByRegion.sink.add(await _repository.fetchByRegion(region));
+  }
 
   dispose() {
     newsFetcher.close();
-    filteredbyCat.close();
+    filteredByCat.close();
     txtField.close();
     searchedListBuilder.close();
     savedNews.close();
-    // filteredCatOutput.close();
+    filteredByRegion.close();
   }
 }
