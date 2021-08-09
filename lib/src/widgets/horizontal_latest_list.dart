@@ -1,17 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news/src/screens/home_details_screen.dart';
+import 'package:news/src/widgets/loading_categories.dart';
 import 'package:share_plus/share_plus.dart';
-import 'loading_latest_news.dart';
 
 class HorizontalLatestList extends StatelessWidget {
   final bloc;
   final blocStream;
+  // final typeData;
+  // final type;
 
-  HorizontalLatestList(this.bloc, this.blocStream);
+  HorizontalLatestList(this.bloc, this.blocStream,
+  //  this.typeData, this.type
+   );
 
   @override
   Widget build(BuildContext context) {
+    // if (type == 'Region') {
+    //   bloc.fetchByRegion(typeData);
+    // } else if (type == 'Category') {}
     return StreamBuilder(
       stream: blocStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -20,7 +27,10 @@ class HorizontalLatestList extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: snapshot.data.length,
             itemBuilder: (BuildContext context, int index) {
-              return Container(
+              return
+                  // SingleChildScrollView(
+                  // child:
+                  Container(
                 width: 200,
                 child: GestureDetector(
                   onTap: () {
@@ -58,9 +68,13 @@ class HorizontalLatestList extends StatelessWidget {
                             )),
                           ],
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Align(
                           child: Container(
-                            margin: EdgeInsets.only(top: 50),
+                            padding: EdgeInsets.all(10),
+                            // margin: EdgeInsets.only(top: 50),
                             child: Row(children: [
                               GestureDetector(
                                 child: Icon(
@@ -99,10 +113,11 @@ class HorizontalLatestList extends StatelessWidget {
                   ),
                 ),
               );
+              // );
             },
           );
         }
-        return Text('Nothing to be showed');
+        return LoadingCategories();
       },
     );
   }
@@ -110,12 +125,17 @@ class HorizontalLatestList extends StatelessWidget {
   latestNewsImage(snapshot, index) {
     if ((snapshot.data[index]).image != '') {
       return Container(
+        width: double.infinity,
         child: CachedNetworkImage(
+          fit: BoxFit.fill,
+          height: 140,
           imageUrl: snapshot.data[index].image,
-          placeholder: (context, url) => new LoadingLatestNews(),
+          placeholder: (context, url) => new Center(
+            child: CircularProgressIndicator(),
+          ),
           errorWidget: (context, url, error) => new Icon(Icons.error),
         ),
-        margin: EdgeInsets.only(bottom: 20),
+        // margin: EdgeInsets.only(bottom: 10),
       );
     } else {
       return Text('No image available or still waiting for image!');

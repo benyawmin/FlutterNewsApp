@@ -8,22 +8,43 @@ class Area extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = LatestNewsProvider.of(context);
-    bloc.fetchByRegion('US');
-    return Column(
-      children: [
-        ExpandingList(regions, 'Regions'),
-        // Column(
-        //   children: [
-        // for (var i in regions.entries)
-        // Text('Latest News From ${i.key}'),
-        Text('title'),
-        Container(
-          height: 200,
-          child: HorizontalLatestList(bloc, bloc.filteredByRegionStream),
-        )
-        //   ],
-        // )
-      ],
+
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ExpandingList(regions, 'Regions'),
+          // Column(
+          //   children: [
+          // for (var i in regions.length)
+          // Text('Latest News From ${i.key}'),
+          // for (var v in regions.values)
+          Column(
+            children: [
+              // Align(
+              // alignment: Alignment.centerLeft,
+              // child:
+              Text(
+                'title',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
+              // ),
+              // Container(
+              //   height: 200,
+              //   child: HorizontalLatestList(
+              //       bloc, bloc.filteredByRegionStream, v, 'Region'),
+              // )
+              Container(
+                child: HorizontalLatestList(bloc, bloc.filteredByRegionStream),
+              )
+            ],
+          )
+          //   ],
+          // )
+        ],
+      ),
     );
   }
 }

@@ -43,11 +43,13 @@ class LoadingCategoriesState extends State<LoadingCategories>
   }
 
   buildContainer() {
-    return Container(
-      width: 100,
-      height: 100,
-      color: Colors.grey[350],
-      margin: EdgeInsets.only(top: 10, bottom: 10),
+    return SizedBox(
+      child: Container(
+        width: 100,
+        height: 100,
+        color: Colors.grey[350],
+        margin: EdgeInsets.only(top: 10, bottom: 10),
+      ),
     );
   }
 

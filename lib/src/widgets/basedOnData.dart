@@ -20,7 +20,7 @@ class BasedOnData extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('News'),
+          title: Text(data.toString()),
         ),
         body: Column(
           children: [LatestNewsList(bloc, blocStream)],

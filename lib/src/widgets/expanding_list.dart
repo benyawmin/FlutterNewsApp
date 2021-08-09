@@ -33,7 +33,7 @@ class ExpandingList extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    BasedOnData(items, title)));
+                                    BasedOnData(i, title)));
                       },
                       child: Card(
                         child: Center(

@@ -21,8 +21,9 @@ class HomeScreenState extends State<HomeScreen> {
     Area(),
     Profile(),
     Categories(),
-    SingleChildScrollView(child:     Search(),
-),
+    SingleChildScrollView(
+      child: Search(),
+    ),
     Home(),
     // NewsList(),
   ];
@@ -32,42 +33,51 @@ class HomeScreenState extends State<HomeScreen> {
     // print(bloc.fetchLatestNews());
     // pr();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('News'),
-      ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.map_outlined),
-            label: 'Areas',
+        appBar: AppBar(
+          title: Text('News'),
+        ),
+        body: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
+        bottomNavigationBar: Container(
+          width: 20,
+          child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(50),
+              topRight: Radius.circular(50),
+            )),
+            child: BottomNavigationBar(
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.map_outlined),
+                  label: 'Areas',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle_outlined),
+                  label: 'Profile',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.featured_play_list),
+                  label: 'Feature',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.search),
+                  label: 'Search',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Home',
+                ),
+              ],
+              currentIndex: _selectedIndex,
+              onTap: _onTapItem,
+              selectedItemColor: Colors.blue,
+              unselectedItemColor: Colors.grey,
+              showSelectedLabels: true,
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.featured_play_list),
-            label: 'Feature',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onTapItem,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        showSelectedLabels: true,
-      ),
-    );
+        ));
   }
 
   // void pr() {

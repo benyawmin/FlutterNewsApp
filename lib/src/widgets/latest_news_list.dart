@@ -17,9 +17,11 @@ class LatestNewsList extends StatelessWidget {
             // print(snapshot.data.toString());
             return NewsListBuilder(snapshot);
           } else if (snapshot.hasError) {
-            return Text('No results were found');
+            return Text('Nothing was found');
           }
-          return LoadingLatestNews();
+          return Center(
+            child: LoadingLatestNews(),
+          );
         });
   }
 }
