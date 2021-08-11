@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import '../blocs/latest_news_provider.dart';
+import '../accessories/accessory.dart';
 
 class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = LatestNewsProvider.of(context);
     return Container(
-        width: 250,
-        margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+        width: 254,
         child: TextField(
           onSubmitted: (text) => bloc.fetchSearchedNews(text),
           autocorrect: false,
@@ -25,10 +25,5 @@ class SearchBar extends StatelessWidget {
             color: Colors.black,
           ),
         ));
-  }
-
-  //converts hex color to flutter color
-  Color hexToColor(String code) {
-    return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
   }
 }

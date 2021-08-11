@@ -17,7 +17,7 @@ class Area extends StatelessWidget {
           //   children: [
           // for (var i in regions.length)
           // Text('Latest News From ${i.key}'),
-          // for (var v in regions.values)
+          for (var v in regions.values)
           Column(
             children: [
               // Align(
@@ -31,14 +31,14 @@ class Area extends StatelessWidget {
                     fontSize: 20),
               ),
               // ),
-              // Container(
-              //   height: 200,
-              //   child: HorizontalLatestList(
-              //       bloc, bloc.filteredByRegionStream, v, 'Region'),
-              // )
               Container(
-                child: HorizontalLatestList(bloc, bloc.filteredByRegionStream),
+                height: 200,
+                child: HorizontalLatestList(
+                    bloc, bloc.filteredByRegionStream, v, 'Region'),
               )
+              // Container(
+              //   child: HorizontalLatestList(bloc, bloc.filteredByRegionStream),
+              // )
             ],
           )
           //   ],

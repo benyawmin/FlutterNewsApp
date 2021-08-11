@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:news/src/screens/home_details_screen.dart';
+import 'package:news/src/widgets/basedOnData.dart';
 import 'package:share_plus/share_plus.dart';
 import 'loading_latest_news.dart';
 import '../resources/repository.dart';
@@ -43,7 +44,7 @@ class NewsListBuilderItemsState extends State<NewsListBuilderItems> {
           child: Column(
             children: [
               Align(
-                child: catReturn(widget.snapshot, widget.index),
+                child: catReturn(widget.snapshot, widget.index, context),
                 alignment: Alignment.topLeft,
               ),
               Row(
@@ -150,7 +151,7 @@ class NewsListBuilderItemsState extends State<NewsListBuilderItems> {
     }
   }
 
-  catReturn(snapshot, index) {
+  catReturn(snapshot, index, context) {
     var categories = "";
     for (var i in (snapshot.data[index]).category) {
       categories += i + ", ";
@@ -160,12 +161,24 @@ class NewsListBuilderItemsState extends State<NewsListBuilderItems> {
     }
 
     return Padding(
-      padding: EdgeInsets.all(10),
-      child: Text(
-        categories,
-        style: TextStyle(
-            color: Colors.orange, decoration: TextDecoration.underline),
-      ),
-    );
+        padding: EdgeInsets.all(10),
+        child: Row(
+          children: [
+            for (var i in (snapshot.data[index]).category)
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BasedOnData(i, 'Categories'))),
+                child: Text(
+                  '$i, ',
+                  style: TextStyle(
+                      color: Colors.orange,
+                      decoration: TextDecoration.underline),
+                ),
+              ),
+          ],
+        ));
   }
 }

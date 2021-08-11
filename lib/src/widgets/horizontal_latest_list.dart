@@ -7,18 +7,20 @@ import 'package:share_plus/share_plus.dart';
 class HorizontalLatestList extends StatelessWidget {
   final bloc;
   final blocStream;
-  // final typeData;
-  // final type;
+  final typeData;
+  final type;
 
   HorizontalLatestList(this.bloc, this.blocStream,
-  //  this.typeData, this.type
+   this.typeData, this.type
    );
 
   @override
   Widget build(BuildContext context) {
-    // if (type == 'Region') {
-    //   bloc.fetchByRegion(typeData);
-    // } else if (type == 'Category') {}
+    if (type == 'Region') {
+      bloc.fetchByRegion(typeData);
+    } else if (type == 'Category') {
+      
+    }
     return StreamBuilder(
       stream: blocStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
