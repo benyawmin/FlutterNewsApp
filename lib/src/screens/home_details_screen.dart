@@ -1,101 +1,114 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class HomeDetailsScreen extends StatelessWidget {
+class HomeDetailsScreen extends StatefulWidget {
   final snapshot;
   final index;
   final img;
 
   HomeDetailsScreen(this.snapshot, this.index, this.img);
 
+  createState() {
+    return new HomeDetailsScreenState();
+  }
+}
+
+class HomeDetailsScreenState extends State<HomeDetailsScreen> {
+  bool isLoading = true;
+
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: Text('Details'),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              // SizedBox(
-              //   child: Container(
-              //     height: 10,
-              //   ),
-              // ),
-              latestNewsImage(snapshot, index),
-              Align(
-                child: Row(children: [
-                  Padding(
-                      padding: EdgeInsets.only(top: 10, left: 20, bottom: 10),
-                      child: Row(
-                        children: [
-                          Text('Share'),
-                          GestureDetector(
-                            child: Icon(Icons.share),
-                            onTap: () =>
-                                Share.share((snapshot.data[index]).url),
-                          ),
-                          catReturn(snapshot, index),
-                        ],
-                      )),
-                  Spacer(),
-                  Padding(
-                      padding: EdgeInsets.only(top: 10, right: 20, bottom: 10),
-                      child: Row(
-                        children: [
-                          Text('Save'),
-                          Icon(Icons.bookmark_border_outlined),
-                        ],
-                      )),
-                ]),
-                alignment: Alignment.bottomLeft,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Icon(
-                    Icons.circle,
-                    color: Colors.blue,
-                    size: 8,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                    child: Text(
-                      snapshot.data[index].title.toString(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.black,
-                      ),
-                    ),
-                  )),
-                ],
-              ),
-              Container(
-                margin: EdgeInsets.all(10),
-                child: Text((snapshot.data[index]).description),
-              ),
-            ],
-          ),
-        ));
+      // resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: Text('Details'),
+      ),
+      body: WebView(
+          key: UniqueKey(),
+          initialUrl: widget.snapshot.data[widget.index].url,
+          javascriptMode: JavascriptMode.unrestricted),
+    );
+    // SingleChildScrollView(
+    //   child: Column(
+    //     children: [
+    //       latestNewsImage(widget.snapshot, widget.index),
+    //       Align(
+    //         child: Row(children: [
+    //           Padding(
+    //               padding: EdgeInsets.only(top: 10, left: 20, bottom: 10),
+    //               child: Row(
+    //                 children: [
+    //                   Text('Share'),
+    //                   GestureDetector(
+    //                     child: Icon(Icons.share),
+    //                     onTap: () => Share.share(
+    //                         (widget.snapshot.data[widget.index]).url),
+    //                   ),
+    //                   catReturn(widget.snapshot, widget.index),
+    //                 ],
+    //               )),
+    //           Spacer(),
+    //           Padding(
+    //               padding: EdgeInsets.only(top: 10, right: 20, bottom: 10),
+    //               child: Row(
+    //                 children: [
+    //                   Text('Save'),
+    //                   Icon(Icons.bookmark_border_outlined),
+    //                 ],
+    //               )),
+    //         ]),
+    //         alignment: Alignment.bottomLeft,
+    //       ),
+    //       Row(
+    //         children: [
+    //           SizedBox(
+    //             width: 10,
+    //           ),
+    //           Icon(
+    //             Icons.circle,
+    //             color: Colors.blue,
+    //             size: 8,
+    //           ),
+    //           SizedBox(
+    //             width: 10,
+    //           ),
+    //           Expanded(
+    //               child: Container(
+    //             padding: EdgeInsets.all(10),
+    //             child: Text(
+    //               widget.snapshot.data[widget.index].title.toString(),
+    //               style: TextStyle(
+    //                 fontWeight: FontWeight.bold,
+    //                 fontSize: 20,
+    //                 color: Colors.black,
+    //               ),
+    //             ),
+    //           )),
+    //         ],
+    //       ),
+    //       Container(
+    //         margin: EdgeInsets.all(10),
+    //         child: Text((widget.snapshot.data[widget.index]).description),
+    //       ),
+    //     ],
+    //   ),
+    // )
+
+    // );
   }
 
- latestNewsImage(snapshot, index) {
+  latestNewsImage(snapshot, index) {
     if ((snapshot.data[index]).image != '') {
       return Container(
         width: double.infinity,
         child: CachedNetworkImage(
           fit: BoxFit.fill,
-          height: 100,
+          height: 150,
           imageUrl: snapshot.data[index].image,
-          placeholder: (context, url) => new Center(child: CircularProgressIndicator(),),
+          placeholder: (context, url) => new Center(
+            child: CircularProgressIndicator(),
+          ),
           errorWidget: (context, url, error) => new Icon(Icons.error),
         ),
         // margin: EdgeInsets.only(bottom: 10),

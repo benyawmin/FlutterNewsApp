@@ -41,7 +41,7 @@ class LoadingLatestNewsState extends State<LoadingLatestNews>
 
   @override
   dispose() {
-    _animationController.dispose(); // you need this
+    _animationController.dispose(); 
     super.dispose();
   }
 }

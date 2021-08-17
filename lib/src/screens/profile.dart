@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news/src/accessories/accessory.dart';
 import '../screens/favorite_news.dart';
 
 class Profile extends StatelessWidget {
@@ -18,7 +19,7 @@ class Profile extends StatelessWidget {
           height: 150,
           margin: EdgeInsets.only(top: 50, left: 10, right: 10),
           decoration: BoxDecoration(
-              color: Colors.blue, borderRadius: BorderRadius.circular(10)),
+              color: hexToColor('#3f88c5'), borderRadius: BorderRadius.circular(10)),
           child: Column(
             children: [
               Padding(
@@ -63,7 +64,9 @@ class Profile extends StatelessWidget {
             width: 380,
             height: 50,
             child: ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Colors.white),
+                style: ElevatedButton.styleFrom(primary: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10), topRight: Radius.circular(10)
+                ))),
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => FavoriteNews()));
@@ -81,12 +84,6 @@ class Profile extends StatelessWidget {
                     ),
                   ],
                 ))
-            // onPressed: () {},
-            // icon: Icon(
-            //   Icons.arrow_forward_outlined,
-            //   color: Colors.white,
-            // ),
-            // label: Text('Show list of favorites')),
             )
       ],
     );

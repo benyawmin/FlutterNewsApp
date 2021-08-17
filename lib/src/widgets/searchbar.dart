@@ -16,10 +16,10 @@ class SearchBar extends StatelessWidget {
               isDense: true,
               filled: true,
               fillColor: hexToColor('#f5f5f5'),
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide(color: hexToColor('#cecece'))),
               hintText: 'Search...'
-              // border: InputBorder(borderSide: )
               ),
           style: TextStyle(
             color: Colors.black,

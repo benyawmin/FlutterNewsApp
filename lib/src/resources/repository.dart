@@ -30,6 +30,10 @@ class Repository {
     return await NewsApiProvider().fetchByRegion(region);
   }
 
+  fetchAllRegions() async {
+    return await NewsApiProvider().fetchAllRegions();
+  }
+
   resetDb() {
     newsDbProvider.clear();
   }

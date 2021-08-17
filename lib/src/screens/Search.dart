@@ -22,21 +22,25 @@ class Search extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(right: 10, left: 20, top: 20),
+            margin: EdgeInsets.only(
+              right: 40,
+              left: 40,
+              top: 20,
+            ),
             child: Row(
               children: [
-                SearchBar(),
-                SizedBox(
-                  width: 20,
-                ),
                 Container(
                   width: 32,
                   height: 32,
                   child: CircleAvatar(
-                    backgroundImage:
-                        NetworkImage('https://picsum.photos/200/300'),
+                    backgroundImage: NetworkImage(
+                        'https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FImage&psig=AOvVaw3aTX9KaJGyFGdScvU2fqn5&ust=1628978608226000&source=images&cd=vfe&ved=0CAgQjRxqFwoTCJj9k7SAr_ICFQAAAAAdAAAAABAD'),
                   ),
-                )
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                SearchBar(),
               ],
             ),
           ),

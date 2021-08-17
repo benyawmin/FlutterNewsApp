@@ -9,7 +9,7 @@ class Categories extends StatelessWidget {
     final bloc = LatestNewsProvider.of(context);
     return Column(
       children: [
-        ExpandingList(categories, 'Categories'),
+        ExpandingList(getCategories(), 'Categories'),
       ],
     );
   }

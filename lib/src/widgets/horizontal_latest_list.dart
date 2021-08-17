@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:news/src/accessories/accessory.dart';
 import 'package:news/src/screens/home_details_screen.dart';
 import 'package:news/src/widgets/loading_categories.dart';
 import 'package:share_plus/share_plus.dart';
@@ -7,20 +8,14 @@ import 'package:share_plus/share_plus.dart';
 class HorizontalLatestList extends StatelessWidget {
   final bloc;
   final blocStream;
-  final typeData;
-  final type;
 
-  HorizontalLatestList(this.bloc, this.blocStream,
-   this.typeData, this.type
-   );
+  HorizontalLatestList(
+    this.bloc,
+    this.blocStream,
+  );
 
   @override
   Widget build(BuildContext context) {
-    if (type == 'Region') {
-      bloc.fetchByRegion(typeData);
-    } else if (type == 'Category') {
-      
-    }
     return StreamBuilder(
       stream: blocStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -29,10 +24,7 @@ class HorizontalLatestList extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: snapshot.data.length,
             itemBuilder: (BuildContext context, int index) {
-              return
-                  // SingleChildScrollView(
-                  // child:
-                  Container(
+              return Container(
                 width: 200,
                 child: GestureDetector(
                   onTap: () {
@@ -75,35 +67,22 @@ class HorizontalLatestList extends StatelessWidget {
                         ),
                         Align(
                           child: Container(
+                            margin: EdgeInsets.only(top: 35),
                             padding: EdgeInsets.all(10),
-                            // margin: EdgeInsets.only(top: 50),
                             child: Row(children: [
                               GestureDetector(
-                                child: Icon(
-                                  Icons.share_outlined,
-                                  color: Colors.grey,
-                                ),
+                                child: Icon(Icons.share_outlined,
+                                    color: hexToColor('#cecece')),
                                 onTap: () =>
                                     Share.share((snapshot.data[index]).url),
                               ),
-                              Icon(Icons.bookmark_border_outlined)
-                              // GestureDetector(
-                              //   child: Icon(selected
-                              //       ? Icons.bookmark
-                              //       : Icons.bookmark_border_outlined),
-                              //   onTap: () {
-                              //     setState(() {
-                              //       selected = !selected;
-                              //       _repository.addToDb(
-                              //           widget.snapshot.data[widget.index]);
-                              //       bloc.addToSavedNews(
-                              //           widget.snapshot, widget.index);
-                              //     });
-                              //   },
-                              // )
+                              Icon(
+                                Icons.bookmark_border_outlined,
+                                color: hexToColor('#cecece'),
+                              )
                             ]),
                           ),
-                          alignment: Alignment.bottomLeft,
+                          alignment: Alignment.center,
                         )
                       ],
                     ),
@@ -115,7 +94,6 @@ class HorizontalLatestList extends StatelessWidget {
                   ),
                 ),
               );
-              // );
             },
           );
         }
@@ -130,14 +108,13 @@ class HorizontalLatestList extends StatelessWidget {
         width: double.infinity,
         child: CachedNetworkImage(
           fit: BoxFit.fill,
-          height: 140,
+          height: 65,
           imageUrl: snapshot.data[index].image,
           placeholder: (context, url) => new Center(
             child: CircularProgressIndicator(),
           ),
           errorWidget: (context, url, error) => new Icon(Icons.error),
         ),
-        // margin: EdgeInsets.only(bottom: 10),
       );
     } else {
       return Text('No image available or still waiting for image!');

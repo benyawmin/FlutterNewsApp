@@ -15,7 +15,7 @@ class BasedOnData extends StatelessWidget {
       blocStream = bloc.filteredByCatStream;
     } else {
       bloc.fetchByRegion(data);
-      blocStream = bloc.filteredByRegion;
+      blocStream = bloc.filteredByRegionStream;
     }
 
     return Scaffold(

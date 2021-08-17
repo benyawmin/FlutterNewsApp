@@ -14,7 +14,7 @@ class NewsDbProvider {
 
   void init() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final path = join(documentsDirectory.path, 'dbase.db');
+    final path = join(documentsDirectory.path, 'dbase1.db');
     db = await openDatabase(path, version: 1,
         onCreate: (Database newDb, int version) {
       newDb.execute("""
@@ -72,6 +72,10 @@ class NewsDbProvider {
       item.toJson(),
       conflictAlgorithm: ConflictAlgorithm.ignore,
     );
+  }
+
+  deleteItem(id) async {
+    return await db.delete('NewsItems', where: 'id = ?', whereArgs: [id]);
   }
 
   clear() {

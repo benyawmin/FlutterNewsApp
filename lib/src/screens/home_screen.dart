@@ -13,7 +13,6 @@ class HomeScreen extends StatefulWidget {
 
 @override
 class HomeScreenState extends State<HomeScreen> {
-  // final jsn = NewsApiProvider();
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -25,13 +24,9 @@ class HomeScreenState extends State<HomeScreen> {
       child: Search(),
     ),
     Home(),
-    // NewsList(),
   ];
 
   Widget build(BuildContext context) {
-    // final bloc = LatestNewsProvider.of(context);
-    // print(bloc.fetchLatestNews());
-    // pr();
     return Scaffold(
         appBar: AppBar(
           title: Text('News'),
@@ -79,12 +74,6 @@ class HomeScreenState extends State<HomeScreen> {
           ),
         ));
   }
-
-  // void pr() {
-  //   ItemModel sd = jsn.fetchLatestNews();
-  //   print(sd.author);
-  // }
-
   void _onTapItem(int index) {
     setState(() {
       _selectedIndex = index;

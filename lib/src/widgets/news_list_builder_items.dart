@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:news/src/accessories/accessory.dart';
 import 'package:news/src/screens/home_details_screen.dart';
 import 'package:news/src/widgets/basedOnData.dart';
 import 'package:share_plus/share_plus.dart';
@@ -19,7 +20,7 @@ class NewsListBuilderItems extends StatefulWidget {
 
 class NewsListBuilderItemsState extends State<NewsListBuilderItems> {
   final _repository = Repository();
-  bool selected = false;
+  List<bool> selected = List.filled(30, false);
   @override
   Widget build(BuildContext context) {
     final bloc = LatestNewsProvider.of(context);
@@ -89,7 +90,10 @@ class NewsListBuilderItemsState extends State<NewsListBuilderItems> {
                         children: [
                           Text('Share'),
                           GestureDetector(
-                            child: Icon(Icons.share),
+                            child: Icon(
+                              Icons.share_outlined,
+                              color: hexToColor('#cecece'),
+                            ),
                             onTap: () => Share.share(
                                 (widget.snapshot.data[widget.index]).url),
                           ),
@@ -102,12 +106,16 @@ class NewsListBuilderItemsState extends State<NewsListBuilderItems> {
                         children: [
                           Text('Save'),
                           GestureDetector(
-                            child: Icon(selected
-                                ? Icons.bookmark
-                                : Icons.bookmark_border_outlined),
+                            child: Icon(
+                              selected[widget.index]
+                                  ? Icons.bookmark
+                                  : Icons.bookmark_border_outlined,
+                              color: hexToColor('#cecece'),
+                            ),
                             onTap: () {
                               setState(() {
-                                selected = !selected;
+                                selected[widget.index] =
+                                    !selected[widget.index];
                                 _repository.addToDb(
                                     widget.snapshot.data[widget.index]);
 
