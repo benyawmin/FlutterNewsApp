@@ -7,6 +7,9 @@ class App extends StatelessWidget {
     return LatestNewsProvider(
         child: MaterialApp(
       title: 'News',
+      theme: ThemeData(
+        primaryColor: Colors.white
+      ),
       home: HomeScreen(),
     ));
   }

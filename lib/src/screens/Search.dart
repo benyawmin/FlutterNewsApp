@@ -23,8 +23,8 @@ class Search extends StatelessWidget {
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(
-              right: 40,
-              left: 40,
+              // right: 10,
+              left: 10,
               top: 20,
             ),
             child: Row(

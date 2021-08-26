@@ -8,7 +8,7 @@ class FavoriteNews extends StatelessWidget {
     final bloc = LatestNewsProvider.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('News'),
+        title: Text('Favorites'),
       ),
       body: Column(
         children: [LatestNewsList(bloc, bloc.savedNewsStream, 'FavoriteNews')],
