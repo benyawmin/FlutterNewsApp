@@ -45,8 +45,8 @@ class LoadingCategoriesState extends State<LoadingCategories>
   buildContainer() {
     return SizedBox(
       child: Container(
-        width: 100,
-        height: 100,
+        width: 200,
+        height: 120,
         color: Colors.grey[350],
         margin: EdgeInsets.only(top: 10, bottom: 10),
       ),

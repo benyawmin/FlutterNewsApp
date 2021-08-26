@@ -17,7 +17,7 @@ class Search extends StatelessWidget {
     final bloc = LatestNewsProvider.of(context);
 
     return DefaultTabController(
-      length: 3,
+      length: 6,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -34,7 +34,7 @@ class Search extends StatelessWidget {
                   height: 32,
                   child: CircleAvatar(
                     backgroundImage: NetworkImage(
-                        'https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FImage&psig=AOvVaw3aTX9KaJGyFGdScvU2fqn5&ust=1628978608226000&source=images&cd=vfe&ved=0CAgQjRxqFwoTCJj9k7SAr_ICFQAAAAAdAAAAABAD'),
+                        'https://thispersondoesnotexist.com/image'),
                   ),
                 ),
                 SizedBox(
@@ -46,14 +46,16 @@ class Search extends StatelessWidget {
           ),
           Container(
             child: TabBar(
+                isScrollable: true,
                 unselectedLabelColor: Colors.black,
                 labelColor: Colors.blue,
                 tabs: [
-                  Tab(
-                    text: "Latest",
-                  ),
-                  Tab(text: "Articles"),
-                  Tab(text: "User"),
+                  Tab(text: "Latest",),
+                  Tab(text: "programming"),
+                  Tab(text: "general"),
+                  Tab(text: "sports"),
+                  Tab(text: "academia"),
+                  Tab(text: "politics"),
                 ]),
           ),
           Container(
@@ -75,18 +77,122 @@ class Search extends StatelessWidget {
                           child: Column(
                         children: [
                           HorizontalSearchList(bloc, bloc.newsStream),
-                          LatestNewsList(bloc, bloc.newsStream),
+                          LatestNewsList(bloc, bloc.newsStream, 'Search'),
                         ],
                       ));
                     },
                   )
                 ],
               ),
-              Container(
-                child: Text("Articles Body"),
+              Column(
+                children: [
+                  StreamBuilder(
+                    stream: bloc.searchedListBuilderStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return NewsListBuilder(snapshot);
+                      } else if (snapshot.hasError) {
+                        return Text('No results found');
+                      }
+                      bloc.c1Fetch('programming');
+                      return Expanded(
+                          child: Column(
+                        children: [
+                          HorizontalSearchList(bloc, bloc.c1Stream),
+                          LatestNewsList(bloc, bloc.c1Stream, 'Search'),
+                        ],
+                      ));
+                    },
+                  )
+                ],
               ),
-              Container(
-                child: Text("User Body"),
+              Column(
+                children: [
+                  StreamBuilder(
+                    stream: bloc.searchedListBuilderStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return NewsListBuilder(snapshot);
+                      } else if (snapshot.hasError) {
+                        return Text('No results found');
+                      }
+                      bloc.c2Fetch('general');
+                      return Expanded(
+                          child: Column(
+                        children: [
+                          HorizontalSearchList(bloc, bloc.c2Stream),
+                          LatestNewsList(bloc, bloc.c2Stream, 'Search'),
+                        ],
+                      ));
+                    },
+                  )
+                ],
+              ),
+              Column(
+                children: [
+                  StreamBuilder(
+                    stream: bloc.searchedListBuilderStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return NewsListBuilder(snapshot);
+                      } else if (snapshot.hasError) {
+                        return Text('No results found');
+                      }
+                      bloc.c3Fetch('sports');
+                      return Expanded(
+                          child: Column(
+                        children: [
+                          HorizontalSearchList(bloc, bloc.c3Stream),
+                          LatestNewsList(bloc, bloc.c3Stream, 'Search'),
+                        ],
+                      ));
+                    },
+                  )
+                ],
+              ),
+              Column(
+                children: [
+                  StreamBuilder(
+                    stream: bloc.searchedListBuilderStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return NewsListBuilder(snapshot);
+                      } else if (snapshot.hasError) {
+                        return Text('No results found');
+                      }
+                      bloc.c4Fetch('academia');
+                      return Expanded(
+                          child: Column(
+                        children: [
+                          HorizontalSearchList(bloc, bloc.c4Stream),
+                          LatestNewsList(bloc, bloc.c4Stream, 'Search'),
+                        ],
+                      ));
+                    },
+                  )
+                ],
+              ),
+              Column(
+                children: [
+                  StreamBuilder(
+                    stream: bloc.searchedListBuilderStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return NewsListBuilder(snapshot);
+                      } else if (snapshot.hasError) {
+                        return Text('No results found');
+                      }
+                      bloc.c5Fetch('politics');
+                      return Expanded(
+                          child: Column(
+                        children: [
+                          HorizontalSearchList(bloc, bloc.c5Stream),
+                          LatestNewsList(bloc, bloc.c5Stream, 'Search'),
+                        ],
+                      ));
+                    },
+                  )
+                ],
               ),
             ]),
           ),

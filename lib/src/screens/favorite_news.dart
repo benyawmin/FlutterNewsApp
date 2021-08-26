@@ -11,7 +11,7 @@ class FavoriteNews extends StatelessWidget {
         title: Text('News'),
       ),
       body: Column(
-        children: [LatestNewsList(bloc, bloc.savedNewsStream)],
+        children: [LatestNewsList(bloc, bloc.savedNewsStream, 'FavoriteNews')],
       ),
     );
   }

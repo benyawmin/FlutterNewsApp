@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:news/src/accessories/accessory.dart';
 import 'package:news/src/screens/home_details_screen.dart';
 import 'package:news/src/widgets/loading_categories.dart';
@@ -35,7 +36,6 @@ class HorizontalLatestList extends StatelessWidget {
                               builder: (context) => HomeDetailsScreen(
                                     snapshot,
                                     index,
-                                    latestNewsImage(snapshot, index),
                                   )));
                     }
                   },
@@ -67,7 +67,7 @@ class HorizontalLatestList extends StatelessWidget {
                         ),
                         Align(
                           child: Container(
-                            margin: EdgeInsets.only(top: 35),
+                            // margin: EdgeInsets.only(top: 35),
                             padding: EdgeInsets.all(10),
                             child: Row(children: [
                               GestureDetector(
@@ -97,7 +97,20 @@ class HorizontalLatestList extends StatelessWidget {
             },
           );
         }
-        return LoadingCategories();
+        return ListView(
+          scrollDirection: Axis.horizontal,
+          children: [
+            LoadingCategories(),
+            SizedBox(
+              width: 10,
+            ),
+            LoadingCategories(),
+            SizedBox(
+              width: 10,
+            ),
+            LoadingCategories(),
+          ],
+        );
       },
     );
   }
@@ -108,7 +121,7 @@ class HorizontalLatestList extends StatelessWidget {
         width: double.infinity,
         child: CachedNetworkImage(
           fit: BoxFit.fill,
-          height: 65,
+          height: 95,
           imageUrl: snapshot.data[index].image,
           placeholder: (context, url) => new Center(
             child: CircularProgressIndicator(),

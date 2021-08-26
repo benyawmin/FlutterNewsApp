@@ -1,14 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class HomeDetailsScreen extends StatefulWidget {
   final snapshot;
   final index;
-  final img;
 
-  HomeDetailsScreen(this.snapshot, this.index, this.img);
+  HomeDetailsScreen(this.snapshot, this.index);
 
   createState() {
     return new HomeDetailsScreenState();
@@ -17,7 +15,8 @@ class HomeDetailsScreen extends StatefulWidget {
 
 class HomeDetailsScreenState extends State<HomeDetailsScreen> {
   bool isLoading = true;
-
+  late String title,url;
+  
   Widget build(BuildContext context) {
     return Scaffold(
       // resizeToAvoidBottomInset: false,

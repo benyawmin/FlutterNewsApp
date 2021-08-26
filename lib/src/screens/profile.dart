@@ -19,7 +19,8 @@ class Profile extends StatelessWidget {
           height: 150,
           margin: EdgeInsets.only(top: 50, left: 10, right: 10),
           decoration: BoxDecoration(
-              color: hexToColor('#3f88c5'), borderRadius: BorderRadius.circular(10)),
+              color: hexToColor('#3f88c5'),
+              borderRadius: BorderRadius.circular(10)),
           child: Column(
             children: [
               Padding(
@@ -64,9 +65,12 @@ class Profile extends StatelessWidget {
             width: 380,
             height: 50,
             child: ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10), topRight: Radius.circular(10)
-                ))),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)))),
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => FavoriteNews()));
@@ -83,8 +87,7 @@ class Profile extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ],
-                ))
-            )
+                )))
       ],
     );
   }

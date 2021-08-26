@@ -1,31 +1,94 @@
+// To parse this JSON data, do
+//
+//     final regionModel = regionModelFromJson(jsonString);
+
 import 'dart:convert';
 
-class RegionsModel {
-  late final String Australia;
-  late final String Canada;
-  late final String China;
-  late final String Finland;
-  late final String SouthKorea;
-  late final String Taiwan;
-  late final String Thailand;
-  late final String Vietnam;
-  late final String UnitedState;
-  late final String German;
-  late final String Zimbabwe;
-  late final String Italy;
+RegionModel regionModelFromJson(String str) =>
+    RegionModel.fromJson(json.decode(str));
 
-  RegionsModel.fromJson(Map<String, dynamic> parsedJson) {
-    Australia = parsedJson['Australia'];
-    Canada = parsedJson['Canada'];
-    China = parsedJson['China'];
-    Finland = parsedJson['Finland'];
-    SouthKorea = parsedJson['SouthKorea'];
-    Taiwan = parsedJson['Taiwan'];
-    Thailand = parsedJson['Thailand'];
-    Vietnam = parsedJson['Vietnam'];
-    UnitedState = parsedJson['UnitedState'];
-    German = parsedJson['German'];
-    Zimbabwe = parsedJson['Zimbabwe'];
-    Italy = parsedJson['Italy'];
-  }
+String regionModelToJson(RegionModel data) => json.encode(data.toJson());
+
+class RegionModel {
+  RegionModel({
+    required this.regions,
+    required this.description,
+    required this.status,
+  });
+
+  Regions regions;
+  String description;
+  String status;
+
+  factory RegionModel.fromJson(Map<String, dynamic> json) => RegionModel(
+        regions: Regions.fromJson(json["regions"]),
+        description: json["description"],
+        status: json["status"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "regions": regions.toJson(),
+        "description": description,
+        "status": status,
+      };
+}
+
+class Regions {
+  Regions({
+    required this.australia,
+    required this.canada,
+    required this.china,
+    required this.finland,
+    required this.southKorea,
+    required this.taiwan,
+    required this.thailand,
+    required this.vietnam,
+    required this.unitedState,
+    required this.german,
+    required this.zimbabwe,
+    required this.italy,
+  });
+
+  String australia;
+  String canada;
+  String china;
+  String finland;
+  String southKorea;
+  String taiwan;
+  String thailand;
+  String vietnam;
+  String unitedState;
+  String german;
+  String zimbabwe;
+  String italy;
+
+  factory Regions.fromJson(Map<String, dynamic> json) => Regions(
+        australia: json["Australia"],
+        canada: json["Canada"],
+        china: json["China"],
+        finland: json["Finland"],
+        southKorea: json["South Korea"],
+        taiwan: json["Taiwan"],
+        thailand: json["Thailand"],
+        vietnam: json["Vietnam"],
+        unitedState: json["United State"],
+        german: json["German"],
+        zimbabwe: json["Zimbabwe"],
+        italy: json["Italy"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "Australia": australia,
+        "Canada": canada,
+        "China": china,
+        "Finland": finland,
+        "South Korea": southKorea,
+        "Taiwan": taiwan,
+        "Thailand": thailand,
+        "Vietnam": vietnam,
+        "United State": unitedState,
+        "German": german,
+        "Zimbabwe": zimbabwe,
+        "Italy": italy,
+      };
 }

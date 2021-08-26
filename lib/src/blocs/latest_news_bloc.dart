@@ -10,7 +10,75 @@ class LatestNewsBloc {
   final _savedNews = BehaviorSubject();
   final _filteredByCat = PublishSubject();
   final _filteredByRegion = PublishSubject();
-  
+
+
+
+
+
+
+
+
+
+
+
+  final _r1 = PublishSubject();
+  final _r2 = PublishSubject();
+  final _r3 = PublishSubject();
+
+  final _c1 = PublishSubject();
+  final _c2 = PublishSubject();
+  final _c3 = PublishSubject();
+  final _c4 = PublishSubject();
+  final _c5 = PublishSubject();
+
+  get r1Stream => _r1.stream;
+  get r2Stream => _r2.stream;
+  get r3Stream => _r3.stream;
+
+  get c1Stream => _c1.stream;
+  get c2Stream => _c2.stream;
+  get c3Stream => _c3.stream;
+  get c4Stream => _c4.stream;
+  get c5Stream => _c5.stream;
+
+
+  r1Fetch(String region) async {
+    _r1.sink.add(await _repository.fetchByRegion(region));
+  }
+
+  r2Fetch(String region) async {
+    _r2.sink.add(await _repository.fetchByRegion(region));
+  }
+
+  r3Fetch(String region) async {
+    _r3.sink.add(await _repository.fetchByRegion(region));
+  }
+
+  c1Fetch(String category) async {
+    _c1.sink.add(await _repository.fetchByCategory(category));
+  }
+
+  c2Fetch(String category) async {
+    _c2.sink.add(await _repository.fetchByCategory(category));
+  }
+
+  c3Fetch(String category) async {
+    _c3.sink.add(await _repository.fetchByCategory(category));
+  }
+
+  c4Fetch(String category) async {
+    _c4.sink.add(await _repository.fetchByCategory(category));
+  }
+
+    c5Fetch(String category) async {
+    _c5.sink.add(await _repository.fetchByCategory(category));
+  }
+
+
+
+
+
+
 
   get newsStream => _newsFetcher.stream;
   get txtFieldStream => _txtField.stream;
@@ -44,7 +112,7 @@ class LatestNewsBloc {
     _filteredByCat.sink.add(await _repository.fetchByCategory(category));
   }
 
-  fetchByRegion(String region) async{
+  fetchByRegion(String region) async {
     _filteredByRegion.sink.add(await _repository.fetchByRegion(region));
   }
 
@@ -55,5 +123,15 @@ class LatestNewsBloc {
     _searchedListBuilder.close();
     _savedNews.close();
     _filteredByRegion.close();
+
+    _r1.close();
+    _r2.close();
+    _r3.close();
+
+    _c1.close();
+    _c2.close();
+    _c3.close();
+    _c4.close();
+    _c5.close();
   }
 }

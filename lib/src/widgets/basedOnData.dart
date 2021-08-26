@@ -23,7 +23,7 @@ class BasedOnData extends StatelessWidget {
           title: Text(data.toString()),
         ),
         body: Column(
-          children: [LatestNewsList(bloc, blocStream)],
+          children: [LatestNewsList(bloc, blocStream, 'BasedOnData')],
         ));
   }
 }

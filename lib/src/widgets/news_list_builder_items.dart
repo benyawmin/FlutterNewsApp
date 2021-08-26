@@ -35,7 +35,6 @@ class NewsListBuilderItemsState extends State<NewsListBuilderItems> {
                     builder: (context) => HomeDetailsScreen(
                           widget.snapshot,
                           widget.index,
-                          latestNewsImage(widget.snapshot, widget.index),
                         )));
           }
         },

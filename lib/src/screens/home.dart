@@ -34,7 +34,7 @@ class Home extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
             )),
-        LatestNewsList(bloc, bloc.newsStream),
+        LatestNewsList(bloc, bloc.newsStream,'Home'),
       ],
     );
   }

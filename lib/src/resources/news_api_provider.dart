@@ -3,8 +3,6 @@ import 'package:news/src/models/news_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:news/src/models/regions_model.dart';
-
 class NewsApiProvider {
   final baseUrl = 'api.currentsapi.services';
 
@@ -64,6 +62,7 @@ class NewsApiProvider {
     print(response.statusCode);
     if (response.statusCode == 200) {
       final items = json.decode(response.body);
+      print(NewsModel.fromJson(items).news);
       return NewsModel.fromJson(items).news;
     } else if (response.statusCode == 401) {
       throw Exception('Error 401');
@@ -98,7 +97,7 @@ class NewsApiProvider {
   }
 
   fetchAllRegions() async {
-    final uri = Uri.https('$baseUrl', '/available/regions');
+    final uri = Uri.https('$baseUrl', 'v1/available/regions');
     final response = await http.get(uri, headers: {
       HttpHeaders.authorizationHeader:
           'tUgFTJO_UFo_Xwo1xpmJ9qPbq7uuhTCMFT-Svqepr4hSVsbv',
@@ -107,9 +106,10 @@ class NewsApiProvider {
     print(response.statusCode);
     if (response.statusCode == 200) {
       final items = json.decode(response.body);
-      print(items);
-      print(RegionsModel.fromJson(items['regions']));
-      return RegionsModel.fromJson(items['regions']);
+      // print(RegionModel.fromJson(items));
+      // return RegionModel.fromJson(items);
+      print(items['regions'].values.toList());
+      return items['regions'].values.toList();
     } else if (response.statusCode == 401) {
       throw Exception('Error 401');
     } else if (response.statusCode == 429) {

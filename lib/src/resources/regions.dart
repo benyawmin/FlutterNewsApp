@@ -1,7 +1,6 @@
 final Map<String, String> regions = 
   {
     "Australia": "AS",
-    "": "PSE",
     "Canada": "CA",
     "China": "CN",
     "Finland": "FI",
